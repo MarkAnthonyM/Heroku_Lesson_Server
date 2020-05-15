@@ -76,18 +76,26 @@ def CheckURI(uri, timeout=5):
     (i.e. times out).
     '''
     # 1. Write this function.  Delete the following line.
-    schema = 'http://'
-    schema_encript = 'https://'
-    if schema in uri or schema_encript in uri:
-        uri = requests.get(uri)
-        if uri.status_code == 200:
-            return True
-        # else:
-        #     print("status_code: {}".format(uri.status_code()))
-        #     print("Invalid uri, try again")
-        #     return False
-    else:
-        # print("Invalide address link")
+    # schema = 'http://'
+    # schema_encript = 'https://'
+    # if schema in uri or schema_encript in uri:
+    #     uri = requests.get(uri)
+    #     if uri.status_code == 200:
+    #         return True
+    #     # else:
+    #     #     print("status_code: {}".format(uri.status_code()))
+    #     #     print("Invalid uri, try again")
+    #     #     return False
+    # else:
+    #     # print("Invalide address link")
+    #     return False
+
+    try:
+        r = requests.get(uri, timeout=timeout)
+        # If the GET request returns, was it a 200 OK?
+        return r.status_code == 200
+    except requests.RequestException:
+        # If the GET request raised an exception, it's not OK.
         return False
 
 
